@@ -2,12 +2,24 @@ import { ITweet } from '../entity/tweet'
 
 export interface ICreateTweetDto {
   content: string
-  user: string
+  location: string
+  likes?: number
+
 }
 
-export function createTweetDtoToTweet (createTweetDto: ICreateTweetDto): ITweet {
+export interface IUpdateTweetDto {
+  content: string
+  location: string
+}
+
+export function createTweetDtoToTweet (createTweetDto: ICreateTweetDto, idUser: string): ITweet {
   return {
+    id: '',
     content: createTweetDto.content,
-    user: createTweetDto.user
+    location: createTweetDto.location,
+    likes: createTweetDto.likes!,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    user: idUser
   }
 }

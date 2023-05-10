@@ -7,24 +7,25 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     new winston.transports.File({
-      filename: 'logs/request.log',
-      level: 'info'
+      filename: 'log/request.log',
+      level: 'info',
     }),
     new winston.transports.File({
-      filename: 'logs/error.log',
-      level: 'error'
+      filename: 'log/error.log',
+      level: 'error',
     }),
-    new winston.transports.Console()
-  ]
+    new winston.transports.Console(),
+  ],
 })
 
 const morganMiddleware = morgan(
   ':remote-addr [:date[iso]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
   {
     stream: {
-      write: (message: string) => logger.info(message.substring(0, message.lastIndexOf('\n')))
-    }
-  }
+      write: (message: string) =>
+        logger.info(message.substring(0, message.lastIndexOf('\n'))),
+    },
+  },
 )
 
 export default morganMiddleware
